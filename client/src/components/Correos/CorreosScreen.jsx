@@ -41,8 +41,9 @@ const CorreosScreen = ({ user }) => {
 
 
   const puedeEnviar = user.role === "administrador";
-  const puedeEditar =
-    user.role === "administrador" || user.role === "colaborador";
+  const puedeEditar = user.role === "administrador" || user.role === "colaborador";
+  const puedeEliminar = user.role === "administrador";
+  const puedeCrear = user.role === "administrador";
 
   // Ordenar por título
   const sortedCorreos = correos
@@ -150,15 +151,17 @@ const CorreosScreen = ({ user }) => {
           Gestiona y envía correos masivos
         </p>
         <div className={styles.actionsBar}>
-          <button
-            onClick={() => {
-              setCorreoEditando(null);
-              setModalAbierto(true);
-            }}
+          {puedeCrear && (
+            <button
+              onClick={() => {
+                setCorreoEditando(null);
+                setModalAbierto(true);
+              }}
             className="actionButtonGlobal"
           >
             ➕ Nuevo Correo
           </button>
+          )}
         </div>
         <table className={styles.correosTable}>
           <thead>
@@ -200,12 +203,14 @@ const CorreosScreen = ({ user }) => {
                       <Send size={16} />
                     </button>
                   )}
+                  {puedeEliminar && (
                   <button
                     className={styles.deleteBtn}
                     onClick={() => handleEliminarCorreo(correo)}
                   >
                     <Trash2 size={16} />
                   </button>
+                  )}
                 </td>
               </tr>
             ))}

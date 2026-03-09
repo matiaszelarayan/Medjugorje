@@ -101,9 +101,11 @@ const EventosScreen = ({ user }) => {
       <h1 className={styles.title}>Eventos</h1>
       <p className={styles.subtitle}>Gestiona los eventos y actividades</p>
       <div className={styles.actionsBar}>
-        <button onClick={handleNuevo} className={styles.nuevoBtn}>
-          + Nuevo Evento
-        </button>
+        {esAdmin && (
+          <button onClick={handleNuevo} className={styles.nuevoBtn}>
+            + Nuevo Evento
+          </button>
+        )}
       </div>
       <table className={styles.eventosTable}>
         <thead>
